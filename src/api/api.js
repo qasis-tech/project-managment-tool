@@ -8,68 +8,6 @@ const bcrypt = require("bcrypt");
 const { resolveSoa } = require("dns");
 const rounds = 10;
 
-exports.signup = (req, res) => {
-  const newpath = __dirname + "/uploads/";
-  const file = req.files.file;
-  const filename = file.name;
- 
-  file.mv(`${newpath}${filename}`, (err,ree) => {
-    if (err) {
-      res.status(500).send({ message: "File upload failed", code: 200 });
-    }
-
-    console.log("ree",ree)
-    bcrypt.hash(req.body.password, rounds, (error, hash) => {
-      if (error) res.send(error);
-      else {
-        const newUser = User({
-          firstname: req.body.firstname,
-          lastname: req.body.lastname,
-          gender: req.body.gender,
-          age: req.body.age,
-          address: req.body.address,
-          qualification: req.body.qualification,
-          designation: req.body.designation,
-          mobilenumber: req.body.mobilenumber,
-          file: req.files.file,
-          email: req.body.email,
-          password: hash,
-          role: "employee",
-        });
-
-        newUser
-          .save()
-          .then((user) => {
-            res.send(user);
-          })
-          .catch((error) => {
-            res.send(error);
-          });
-      }
-    });
-  });
-};
-exports.login = (req, res) => {
-  User.findOne({ email: req.body.email })
-    .then((user) => {
-      if (!user) res.send("No user found");
-      else {
-        bcrypt.compare(req.body.password, user.password, (error, match) => {
-          if (error) res.send(error);
-          else if (match) {
-            if (user.role === "admin")
-              res.status(500).send(`Welcome, ${user.firstname}`);
-            if (user.role === "employee")
-              res.status(500).send(`Welcome, ${user.firstname}`);
-          } else res.send("password do not match");
-        });
-      }
-    })
-    .catch((error) => {
-      res.send(error);
-    });
-};
-
 exports.manager = (req, res) => {
   const newpath = __dirname + "/uploads/";
   const file = req.files.file;
@@ -134,21 +72,25 @@ exports.editmanager = (req, res) => {
     bcrypt.hash(req.body.password, rounds, (error, hash) => {
       if (error) res.send(error);
       else {
-        User.findByIdAndUpdate(req.params.id, {
-          firstname: req.body.firstname,
-          lastname: req.body.lastname,
-          gender: req.body.gender,
-          age: req.body.age,
-          address: req.body.address,
-          qualification: req.body.qualification,
-          designation: req.body.designation,
-          mobilenumber: req.body.mobilenumber,
-          file: req.files.file,
-          email: req.body.email,
-          password: hash,
-        },{
-          new: true
-      }).then((user) => {
+        User.findByIdAndUpdate(
+          req.params.id,
+          {
+            firstname: req.body.firstname,
+            lastname: req.body.lastname,
+            gender: req.body.gender,
+            age: req.body.age,
+            address: req.body.address,
+            qualification: req.body.qualification,
+            designation: req.body.designation,
+            mobilenumber: req.body.mobilenumber,
+            file: req.files.file,
+            email: req.body.email,
+            password: hash,
+          },
+          {
+            new: true,
+          }
+        ).then((user) => {
           if (!user) {
             return res.status(404).send({
               message: "User not found with id " + req.params.id,
@@ -216,34 +158,35 @@ exports.viewtask = (req, res) => {
 };
 
 exports.edittask = (req, res) => {
-  Task.findByIdAndUpdate(req.params.id, {
-    maintask: req.body.maintask,
-    startdate: req.body.startdate,
-    enddate: req.body.enddate,
-    description: req.body.description,
-    status: req.body.status,
-    subtask: [
-      {
-        subtask: req.body.subtask,
-        substartdate: req.body.substartdate,
-        subenddate: req.body.subenddate,
-        subdescription: req.body.subdescription,
-        substatus: req.body.substatus
-      }
-    ]
-      },{
-        new: true
-    })
-      .then((task) => {
-        if (!task) {
-          return res.status(404).send({
-            message: "Task not found with id " + req.params.id,
-          });
-        }
-        res.send(task);
+  Task.findByIdAndUpdate(
+    req.params.id,
+    {
+      maintask: req.body.maintask,
+      startdate: req.body.startdate,
+      enddate: req.body.enddate,
+      description: req.body.description,
+      status: req.body.status,
+      subtask: [
+        {
+          subtask: req.body.subtask,
+          substartdate: req.body.substartdate,
+          subenddate: req.body.subenddate,
+          subdescription: req.body.subdescription,
+          substatus: req.body.substatus,
+        },
+      ],
+    },
+    {
+      new: true,
+    }
+  ).then((task) => {
+    if (!task) {
+      return res.status(404).send({
+        message: "Task not found with id " + req.params.id,
       });
-
-      
+    }
+    res.send(task);
+  });
 };
 exports.deletetask = (req, res) => {
   Task.findByIdAndRemove(req.params.id).then((task) => {
