@@ -4,7 +4,7 @@
   "description": "project management tool",
   "main": "Index.js",
   "scripts": {
-    "start": "node Index.js",
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -17,6 +17,15 @@
     "express-fileupload": "^1.4.0",
     "mongoose": "^6.4.1",
     "multer": "^1.4.5-lts.1",
-    "nodemon": "^2.0.18"
-  }
+    "nodemon": "^2.0.18",
+    "path": "^0.12.7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qasis-tech/project-managment-tool.git"
+  },
+  "bugs": {
+    "url": "https://github.com/qasis-tech/project-managment-tool/issues"
+  },
+  "homepage": "https://github.com/qasis-tech/project-managment-tool#readme"
 }

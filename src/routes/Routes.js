@@ -1,14 +1,18 @@
-module.exports = (app) => {
-  const users = require("../api/api");
 
-  app.post("/signup", users.signup);
-  app.get("/login", users.login);
-  app.post("/manager",users.manager);
-  app.get("/manager",users.viewmanager);
-  app.put("/manager/:id",users.editmanager);
-  app.delete("/manager/:id",users.delete);
-  app.post("/task",users.task);
-  app.get("/task",users.viewtask);
-  app.put("/task/:id",users.edittask);
-  app.delete("/task/:id",users.deletetask);
+module.exports = (app) => {
+  const signup = require("../api/SignUp");
+  const login = require("../api/Login");
+  const manager = require("../api/Manager");
+  const task = require("../api/Task");
+  const upload=require('../../middleware/upload')
+  app.post("/signup",signup.signup);
+  app.get("/login", login.login);
+  app.post("/manager",manager.manager);
+  app.get("/manager",manager.viewmanager);
+  app.put("/manager/:id",manager.editmanager);
+  app.delete("/manager/:id",manager.delete);
+  app.post("/task",task.task);
+  app.get("/task",task.viewtask);
+  app.put("/task/:id",task.edittask);
+  app.delete("/task/:id",task.deletetask);
 };

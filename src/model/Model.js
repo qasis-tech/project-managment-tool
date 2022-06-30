@@ -34,8 +34,9 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  file: {
-    type: String
+  imagefile: {
+    type:String
+   
   },
   email: {
     type: String,
@@ -49,7 +50,7 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-
+ 
 });
 
 module.exports = mongoose.model("users", UserSchema);
