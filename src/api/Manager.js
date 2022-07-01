@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const { resolveSoa } = require("dns");
 const rounds = 10;
 
-const User = require("../model/model");
+const User = require("../model/user");
 exports.manager = (req, res) => {
     const newpath = __dirname + "/uploads/";
     const file = req.files.file;
