@@ -4,9 +4,6 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const fileupload = require("express-fileupload");
 const router = express.Router();
-const multer = require("multer");
-const path=require('path')
-
 const bcrypt = require("bcrypt");
 const cors = require("cors");
 app.use(

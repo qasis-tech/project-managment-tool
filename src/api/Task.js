@@ -13,8 +13,10 @@ exports.task = (req, res) => {
         subenddate: req.body.subenddate,
         subdescription: req.body.subdescription,
         substatus: req.body.substatus,
+        subtaskassignto:[req.body.subtaskassignto]
       },
     ],
+    assignto:[req.body.assignto]
   });
 
   task
@@ -56,8 +58,11 @@ exports.edittask = (req, res) => {
           subenddate: req.body.subenddate,
           subdescription: req.body.subdescription,
           substatus: req.body.substatus,
+          subtaskassignto:[req.body.subtaskassignto]
         },
       ],
+      assignto:[req.body.assignto]
+
     },
     {
       new: true,

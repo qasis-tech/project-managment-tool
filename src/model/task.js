@@ -44,8 +44,18 @@ const taskSchema = mongoose.Schema({
         type: String,
         required: true,
       },
+      subtaskassignto: {
+        type: Array,
+        required: true,
+      },
     },
   ],
+ assignto:{
+  type:Array,
+  required:true
+ }
+
+
 });
 
 module.exports = mongoose.model("tasks", taskSchema);

@@ -35,8 +35,8 @@ const UserSchema = mongoose.Schema({
     required: true,
   },
   imagefile: {
-   data:Buffer,
-   contentType: String
+    type: String,
+    required: true,
    
   },
   email: {

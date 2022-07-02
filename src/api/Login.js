@@ -16,15 +16,18 @@ exports.login = (req, res) => {
             User.updateOne(
               { email: req.body.email },
               { $set: { token: newtoken } }
-            )
-            .then((login) => {
-                if (!login) {
-                  return res.status(404).send({
-                    message: "User not found with id "
-                  });
-                }
-                res.json(user);
-              });
+            ).then((login) => {
+              if (!login) {
+                return res.status(404).send({
+                  message: "User not found with id ",
+                });
+              }
+              let email = req.body.email;
+              User.find({ email: email })
+                .then((users) => {
+                  res.send(users);
+                })
+               });
           } else res.send("password do not match");
         });
       }

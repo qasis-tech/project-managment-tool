@@ -2,7 +2,8 @@ const signup = require("../api/SignUp");
 const login = require("../api/Login");
 const manager = require("../api/Manager");
 const task = require("../api/Task");
-const upload = require("../../middleware/upload");
+
+
 module.exports = (app) => {
 
   app.post("/signup", signup.signup);
