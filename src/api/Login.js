@@ -23,11 +23,10 @@ exports.login = (req, res) => {
                 });
               }
               let email = req.body.email;
-              User.find({ email: email })
-                .then((users) => {
-                  res.send(users);
-                })
-               });
+              User.find({ email: email }).then((users) => {
+                res.send(users);
+              });
+            });
           } else res.send("password do not match");
         });
       }

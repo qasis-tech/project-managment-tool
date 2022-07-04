@@ -13,10 +13,10 @@ exports.task = (req, res) => {
         subenddate: req.body.subenddate,
         subdescription: req.body.subdescription,
         substatus: req.body.substatus,
-        subtaskassignto:[req.body.subtaskassignto]
+        subtaskassignto: [req.body.subtaskassignto],
       },
     ],
-    assignto:[req.body.assignto]
+    assignto: [req.body.assignto],
   });
 
   task
@@ -58,11 +58,10 @@ exports.edittask = (req, res) => {
           subenddate: req.body.subenddate,
           subdescription: req.body.subdescription,
           substatus: req.body.substatus,
-          subtaskassignto:[req.body.subtaskassignto]
+          subtaskassignto: [req.body.subtaskassignto],
         },
       ],
-      assignto:[req.body.assignto]
-
+      assignto: [req.body.assignto],
     },
     {
       new: true,
@@ -90,8 +89,8 @@ exports.deletetask = (req, res) => {
 };
 
 exports.filtertask = (req, res) => {
-  let statussearch=req.query.status
-   Task.find({status: statussearch}) 
+  let statussearch = req.query.status;
+  Task.find({ status: statussearch })
     .then((tasks) => {
       res.send(tasks);
     })
@@ -100,5 +99,4 @@ exports.filtertask = (req, res) => {
         message: err.message || "error in filtering.",
       });
     });
- };
-  
+};

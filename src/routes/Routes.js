@@ -2,11 +2,12 @@ const signup = require("../api/SignUp");
 const login = require("../api/Login");
 const manager = require("../api/Manager");
 const task = require("../api/Task");
-
-
 module.exports = (app) => {
 
   app.post("/signup", signup.signup);
+  app.get("/signup", signup.viewemp);
+  app.put("/signup/:id", signup.editemp);
+  app.delete("/signup/:id", signup.deleteemp);
   app.get("/login", login.login);
   app.post("/manager", manager.manager);
   app.get("/manager", manager.viewmanager);
