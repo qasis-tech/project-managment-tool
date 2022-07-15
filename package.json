@@ -4,7 +4,7 @@
   "description": "project management tool",
   "main": "Index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -19,7 +19,6 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.4.1",
     "multer": "^1.4.5-lts.1",
-    "nodemon": "^2.0.18",
     "path": "^0.12.7",
     "util": "^0.12.4"
   },
@@ -30,5 +29,8 @@
   "bugs": {
     "url": "https://github.com/qasis-tech/project-managment-tool/issues"
   },
-  "homepage": "https://github.com/qasis-tech/project-managment-tool#readme"
+  "homepage": "https://github.com/qasis-tech/project-managment-tool#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
 }

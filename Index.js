@@ -10,10 +10,10 @@ app.use(
   })
 );
 app.use(bodyParser.json());
-app.use(cors({ origin: "http://localhost:8000", credentials: true }));
 const dbCon = require("./src/config/connection");
 const authRoute = require("./src/routes/routes")(app);
+const port = 7000;
 
-app.listen(8000, () => {
-  console.log("Server is listening on port 8000");
+app.listen(port, () => {
+  console.log("Server is listening on port ", port);
 });
