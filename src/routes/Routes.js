@@ -17,4 +17,8 @@ module.exports = (app) => {
   app.put("/task/:id", task.edittask);
   app.delete("/task/:id", task.deletetask);
   app.get("/filter", task.filtertask);
+  app.get("/", (req, res) => {
+    console.log("11111111111111111111111111");
+    res.send("Yesss");
+  });
 };
