@@ -16,36 +16,49 @@ exports.signup = (req, res) => {
         success: false,
       });
     else {
-      const newUser = User({
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-        gender: req.body.gender,
-        age: req.body.age,
-        address: req.body.address,
-        qualification: req.body.qualification,
-        designation: req.body.designation,
-        mobilenumber: req.body.mobilenumber,
+      User.findOne({
         email: req.body.email,
-        password: hash,
-        role: "employee",
-        token: null,
-      });
-      newUser
-        .save()
-        .then((user) => {
-          res.status(200).send({
-            data: [user],
-            message: "Successfully created your account..!",
-            success: true,
-          });
-        })
-        .catch((error) => {
+      }).then((user) => {
+        if (user)
           res.status(404).send({
-            data: [error],
-            message: "Error..!",
+            data: [],
+            message: "Email already exists..!",
             success: false,
           });
-        });
+        else {
+          const newUser = User({
+            firstname: req.body.firstname,
+            lastname: req.body.lastname,
+            gender: req.body.gender,
+            age: req.body.age,
+            address: req.body.address,
+            qualification: req.body.qualification,
+            designation: req.body.designation,
+            mobilenumber: req.body.mobilenumber,
+            email: req.body.email,
+            password: hash,
+            role: "employee",
+            token: null,
+            resetotp: null,
+          });
+          newUser
+            .save()
+            .then((user) => {
+              res.status(200).send({
+                data: [user],
+                message: "Successfully created your account..!",
+                success: true,
+              });
+            })
+            .catch((error) => {
+              res.status(404).send({
+                data: [error],
+                message: "Error..!",
+                success: false,
+              });
+            });
+        }
+      });
     }
   });
 };

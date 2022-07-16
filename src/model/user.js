@@ -51,5 +51,8 @@ const UserSchema = mongoose.Schema({
   token: {
     type: String,
   },
+  resetotp: {
+    type: String,
+  },
 });
 module.exports = mongoose.model("users", UserSchema);

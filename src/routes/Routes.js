@@ -2,6 +2,7 @@ const signup = require("../api/SignUp");
 const login = require("../api/Login");
 const manager = require("../api/Manager");
 const task = require("../api/Task");
+const forgotPassword = require('../api/ForgotPassword')
 const {
   validate,
   signupvalidate
@@ -22,8 +23,6 @@ module.exports = (app) => {
   app.put("/task/:id", task.edittask);
   app.delete("/task/:id", task.deletetask);
   app.get("/filter", task.filtertask);
-  app.get("/", (req, res) => {
-    console.log("11111111111111111111111111");
-    res.send("Yesss");
-  });
+  app.post('/sendotp', forgotPassword.sendOtp)
+  app.post('/reset', forgotPassword.reset)
 };
