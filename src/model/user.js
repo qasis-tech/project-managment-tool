@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
-const { buffer } = require("stream/consumers");
+const {
+  buffer
+} = require("stream/consumers");
 
 const UserSchema = mongoose.Schema({
   firstname: {
@@ -10,7 +12,7 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-    gender: {
+  gender: {
     type: String,
     required: true,
   },
@@ -30,20 +32,15 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-    mobilenumber: {
+  mobilenumber: {
     type: String,
     required: true,
-  },
-  imagefile: {
-    type: String,
-    required: true,
-   
   },
   email: {
     type: String,
     required: true,
   },
-    password: {
+  password: {
     type: String,
     required: true,
   },
@@ -53,10 +50,6 @@ const UserSchema = mongoose.Schema({
   },
   token: {
     type: String,
-      },
- 
+  },
 });
-
 module.exports = mongoose.model("users", UserSchema);
-
-

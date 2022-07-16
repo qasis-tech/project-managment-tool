@@ -24,12 +24,17 @@ exports.addtask = async (req, res) => {
     });
 
     task.save().then((task) => {
-      res.send(task);
+      res.status(200).send({
+        data: [task],
+        message: "Successfully added tasks..!",
+        success: true,
+      });
     });
   } else {
     res.status(404).send({
       data: [],
       message: "User not found..!",
+      success: false,
     });
   }
 };
@@ -40,12 +45,17 @@ exports.viewtask = async (req, res) => {
   let result = await tokencheck(token);
   if (result) {
     Task.find().then((tasks) => {
-      res.send(tasks);
+      res.status(200).send({
+        data: [tasks],
+        message: "Successfully fetched tasks..!",
+        success: true,
+      });
     });
   } else {
     res.status(404).send({
       data: [],
       message: "User not found..!",
+      success: false,
     });
   }
 };
@@ -76,15 +86,22 @@ exports.edittask = async (req, res) => {
     ).then((task) => {
       if (!task) {
         return res.status(404).send({
+          data: [],
           message: "Task not found with id " + req.params.id,
+          success: false,
         });
       }
-      res.send(task);
+      res.status(200).send({
+        data: [task],
+        message: "Successfully updated tasks..!",
+        success: true,
+      });
     });
   } else {
     res.status(404).send({
       data: [],
       message: "User not found..!",
+      success: false,
     });
   }
 };
@@ -95,17 +112,22 @@ exports.deletetask = async (req, res) => {
     Task.findByIdAndRemove(req.params.id).then((task) => {
       if (!task) {
         return res.status(404).send({
+          data: [],
           message: "Task not found with id " + req.params.id,
+          success: false,
         });
       }
-      res.send({
-        message: "Task deleted successfully!",
+      res.status(200).send({
+        data: [task],
+        message: "Successfully deleted tasks..!",
+        success: true,
       });
     });
   } else {
     res.status(404).send({
       data: [],
       message: "User not found..!",
+      success: false,
     });
   }
 };
@@ -119,17 +141,24 @@ exports.filtertask = async (req, res) => {
         status: statussearch,
       })
       .then((tasks) => {
-        res.send(tasks);
+        res.status(200).send({
+          data: [tasks],
+          message: "Successfully fetched tasks..!",
+          success: true,
+        });
       })
       .catch((err) => {
         res.status(500).send({
-          message: err.message || "error in filtering.",
+          data: [],
+          message: "error in filtering.",
+          success: false,
         });
       });
   } else {
     res.status(404).send({
       data: [],
       message: "User not found..!",
+      success: false,
     });
   }
 };

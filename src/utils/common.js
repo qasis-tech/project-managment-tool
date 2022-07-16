@@ -1,8 +1,7 @@
 const User = require("../model/user");
 module.exports = tokencheck = async (token) => {
-
     let result = await User.find({
-        token: token
+        token: token,
     });
-    return result.length
-}
+    return result.length;
+};

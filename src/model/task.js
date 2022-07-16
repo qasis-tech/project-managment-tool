@@ -20,42 +20,35 @@ const taskSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  subtask: [
-    {
-      subtask: {
-        type: String,
-        required: true,
-      },
-      substartdate: 
-      { 
-        type: Date, 
-        default: Date.now 
+  subtask: [{
+    subtask: {
+      type: String,
+      required: true,
     },
-      subenddate: 
-      { 
-        type: Date, 
-        default: Date.now 
+    substartdate: {
+      type: Date,
+      default: Date.now,
     },
-      subdescription: {
-        type: String,
-        required: true,
-      },
-      substatus: {
-        type: String,
-        required: true,
-      },
-      subtaskassignto: {
-        type: Array,
-        required: true,
-      },
+    subenddate: {
+      type: Date,
+      default: Date.now,
     },
-  ],
- assignto:{
-  type:Array,
-  required:true
- }
-
-
+    subdescription: {
+      type: String,
+      required: true,
+    },
+    substatus: {
+      type: String,
+      required: true,
+    },
+    subtaskassignto: {
+      type: Array,
+      required: true,
+    },
+  }, ],
+  assignto: {
+    type: Array,
+    required: true,
+  },
 });
-
 module.exports = mongoose.model("tasks", taskSchema);

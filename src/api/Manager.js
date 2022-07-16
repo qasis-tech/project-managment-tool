@@ -18,16 +18,20 @@ const upload = multer({
 }).single("imagefile");
 
 exports.manager = async (req, res) => {
-  let token = req.query.token
+  let token = req.query.token;
   let result = await tokencheck(token);
   if (result) {
-
     upload(req, res, (err) => {
       if (err) {
         console.log(err);
       } else {
         bcrypt.hash(req.body.password, rounds, (error, hash) => {
-          if (error) res.send(error);
+          if (error)
+            res.status(404).send({
+              data: [error],
+              message: "Error..!",
+              success: false,
+            });
           else {
             const newUser = User({
               firstname: req.body.firstname,
@@ -42,16 +46,24 @@ exports.manager = async (req, res) => {
               email: req.body.email,
               password: hash,
               role: "manager",
-              token: "",
+              token: null,
             });
 
             newUser
               .save()
               .then((user) => {
-                res.send(user);
+                res.status(200).send({
+                  data: [user],
+                  message: "Successfully added manager..!",
+                  success: true,
+                });
               })
               .catch((error) => {
-                res.send(error);
+                res.status(404).send({
+                  data: [error],
+                  message: "Error..!",
+                  success: false,
+                });
               });
           }
         });
@@ -61,35 +73,35 @@ exports.manager = async (req, res) => {
     res.status(404).send({
       data: [],
       message: "User not found..!",
+      success: false,
     });
   }
 };
 
 exports.viewmanager = async (req, res) => {
-  let token = req.query.token
+  let token = req.query.token;
   let result = await tokencheck(token);
   if (result) {
     User.find({
-        role: "manager"
-      })
-      .then((users) => {
-        res.send(users);
-      })
-      .catch((err) => {
-        res.status(500).send({
-          message: err.message || "Some error occurred while retrieving managers.",
-        });
+      role: "manager",
+    }).then((users) => {
+      res.status(200).send({
+        data: [users],
+        message: "Successfully fetched managers..!",
+        success: true,
       });
+    });
   } else {
     res.status(404).send({
       data: [],
       message: "User not found..!",
+      success: false,
     });
   }
 };
 
 exports.editmanager = async (req, res) => {
-  let token = req.query.token
+  let token = req.query.token;
   let result = await tokencheck(token);
   if (result) {
     upload(req, res, (err) => {
@@ -97,7 +109,12 @@ exports.editmanager = async (req, res) => {
         console.log(err);
       } else {
         bcrypt.hash(req.body.password, rounds, (error, hash) => {
-          if (error) res.send(error);
+          if (error)
+            res.status(404).send({
+              data: [error],
+              message: "Error..!",
+              success: false,
+            });
           else {
             User.findByIdAndUpdate(
               req.params.id, {
@@ -118,10 +135,16 @@ exports.editmanager = async (req, res) => {
             ).then((user) => {
               if (!user) {
                 return res.status(404).send({
+                  data: [],
                   message: "manager not found with id " + req.params.id,
+                  success: false,
                 });
               }
-              res.send(user);
+              res.status(200).send({
+                data: [user],
+                message: "Successfully updated manager details..!",
+                success: true,
+              });
             });
           }
         });
@@ -136,23 +159,28 @@ exports.editmanager = async (req, res) => {
 };
 
 exports.delete = async (req, res) => {
-  let token = req.query.token
+  let token = req.query.token;
   let result = await tokencheck(token);
   if (result) {
     User.findByIdAndRemove(req.params.id).then((user) => {
       if (!user) {
         return res.status(404).send({
+          data: [],
           message: "manager not found with id " + req.params.id,
+          success: false,
         });
       }
-      res.send({
+      res.status(200).send({
+        data: [],
         message: "Manager deleted successfully!",
+        success: true,
       });
     });
   } else {
     res.status(404).send({
       data: [],
       message: "User not found..!",
+      success: false,
     });
   }
 };
