@@ -35,6 +35,7 @@ exports.signup = (req, res) => {
             qualification: req.body.qualification,
             designation: req.body.designation,
             mobilenumber: req.body.mobilenumber,
+            profilepic: null,
             email: req.body.email,
             password: hash,
             role: "employee",
@@ -106,7 +107,7 @@ exports.editemp = (req, res) => {
         .then((user) => {
           res.status(200).send({
             data: [user],
-            message: "Successfully fetched employees..!",
+            message: "Successfully updated employees..!",
             success: true,
           });
         })

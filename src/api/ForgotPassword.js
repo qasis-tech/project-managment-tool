@@ -5,8 +5,11 @@ const bcrypt = require("bcrypt");
 const rounds = 10;
 exports.sendOtp = (req, res) => {
     const myOtp = otpGenerator.generate(6, {
+        digits: true,
+        lowerCaseAlphabets: false,
         upperCaseAlphabets: false,
-        specialChars: false,
+        specialChars: false
+
     });
     User.findOne({
         email: req.body.email,

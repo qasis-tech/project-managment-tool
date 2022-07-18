@@ -39,9 +39,7 @@ exports.addtask = async (req, res) => {
   }
 };
 exports.viewtask = async (req, res) => {
-  const {
-    token
-  } = req.body;
+  let token = req.query.token;
   let result = await tokencheck(token);
   if (result) {
     Task.find().then((tasks) => {
@@ -118,7 +116,7 @@ exports.deletetask = async (req, res) => {
         });
       }
       res.status(200).send({
-        data: [task],
+        data: [],
         message: "Successfully deleted tasks..!",
         success: true,
       });

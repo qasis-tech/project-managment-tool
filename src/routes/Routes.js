@@ -2,7 +2,9 @@ const signup = require("../api/SignUp");
 const login = require("../api/Login");
 const manager = require("../api/Manager");
 const task = require("../api/Task");
-const forgotPassword = require('../api/ForgotPassword')
+const profilePic = require("../api/ProfilePic");
+// const validUrl = require('valid-url');
+const forgotPassword = require("../api/ForgotPassword");
 const {
   validate,
   signupvalidate
@@ -23,6 +25,9 @@ module.exports = (app) => {
   app.put("/task/:id", task.edittask);
   app.delete("/task/:id", task.deletetask);
   app.get("/filter", task.filtertask);
-  app.post('/sendotp', forgotPassword.sendOtp)
-  app.post('/reset', forgotPassword.reset)
+  app.post("/sendotp", forgotPassword.sendOtp);
+  app.post("/reset", forgotPassword.reset);
+  app.post("/profile", profilePic.addPic);
+  app.get("/profile", profilePic.viewPic);
+  app.put("/profile", profilePic.deletePic);
 };

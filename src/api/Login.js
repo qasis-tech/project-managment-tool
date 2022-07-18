@@ -19,7 +19,7 @@ exports.login = (req, res) => {
             email: user.email,
             firstname: user.firstname,
             _id: user._id,
-          }, );
+          }, "QASISTECHNOLOGIES_jwtsecretkey");
           User.updateOne({
             email: req.body.email,
           }, {

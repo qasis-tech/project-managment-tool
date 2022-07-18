@@ -15,7 +15,7 @@ const Storage = multer.diskStorage({
 });
 const upload = multer({
   storage: Storage,
-}).single("imagefile");
+}).single("profilepic");
 
 exports.manager = async (req, res) => {
   let token = req.query.token;
@@ -42,7 +42,7 @@ exports.manager = async (req, res) => {
               qualification: req.body.qualification,
               designation: req.body.designation,
               mobilenumber: req.body.mobilenumber,
-              imagefile: req.file.path,
+              profilepic: req.file.path,
               email: req.body.email,
               password: hash,
               role: "manager",
@@ -126,7 +126,7 @@ exports.editmanager = async (req, res) => {
                 qualification: req.body.qualification,
                 designation: req.body.designation,
                 mobilenumber: req.body.mobilenumber,
-                imagefile: req.file.path,
+                profilepic: req.file.path,
                 email: req.body.email,
                 password: hash,
               }, {
