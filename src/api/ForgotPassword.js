@@ -8,8 +8,7 @@ exports.sendOtp = (req, res) => {
         digits: true,
         lowerCaseAlphabets: false,
         upperCaseAlphabets: false,
-        specialChars: false
-
+        specialChars: false,
     });
     User.findOne({
         email: req.body.email,
@@ -32,8 +31,10 @@ exports.sendOtp = (req, res) => {
                     from: "veenavijayan38@gmail.com",
                     to: req.body.email,
                     subject: "OTP for reset your password",
-                    text: "This is your One Time Password to reset your password in Project Management Tool.." +
-                        myOtp,
+
+                    html: "Hello ! <br><br>This is your One Time Password to reset your password in Project Management Tool...<br><br><b><u>" +
+                        myOtp +
+                        "</b></u><br><br>Thank You..",
                 };
                 nodemailer
                     .createTransport({
@@ -44,6 +45,7 @@ exports.sendOtp = (req, res) => {
                         },
                         port: 465,
                         host: "smtp.gmail.com",
+                        from: "veenavijayan38@gmail.com"
                     })
                     .sendMail(msg, (err) => {
                         if (err) {

@@ -16,5 +16,5 @@ exports.usersignup = Joi.object().keys({
         .pattern(/^[0-9]+$/)
         .required(),
     email: Joi.string().email().lowercase().required(),
-    password: Joi.string().min(3).max(8).required(),
+    password: Joi.string().required(),
 });
